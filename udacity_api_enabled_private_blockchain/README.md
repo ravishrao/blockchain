@@ -25,7 +25,7 @@ HTTP Body:
 
 ### To retrieve a block
 
-http://<hostname>:8000/block/<block_height>
+http://<hostname>:8000/block/<blockheight>
 
 HTTP Method: GET
 HTTP Body: NA
