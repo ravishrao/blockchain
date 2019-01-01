@@ -18,7 +18,7 @@ class Blockchain {
     async generateGenesisBlock() {
         try {
             console.log("Detecting if the BlockChain needs to be initialized with genesis block")
-            const chainHeight = await this.getChainHeight();
+            const chainHeight = await this.getBlockHeight();
             if (chainHeight === -1) {
                 const genesisBlock = new Block("Block - 0");
                 console.log("Detected new BlockChain. Adding genesis block");
@@ -34,7 +34,7 @@ class Blockchain {
     }
 
     // Get block height, it is auxiliar method that return the height of the blockchain
-    async getChainHeight() {
+    async getBlockHeight() {
         try {
             let chainHeight = await this.blockDb.getDbBlockCount();
             // console.log("Current chain height is - " + (chainHeight - 1));
@@ -47,7 +47,7 @@ class Blockchain {
 
     // Add new block
     async addBlock(block) {
-        let chainHeight = await this.getChainHeight();
+        let chainHeight = await this.getBlockHeight();
         let previousBlock = {};
 
         if (chainHeight === -1) {
@@ -124,17 +124,25 @@ class Blockchain {
     async validateChain() {
         try {
             // console.log("Validating the entire BlockChain");
-            const chainHeight = await this.getChainHeight();
+            const chainHeight = await this.getBlockHeight();
             let blockValidated = true;
+            let invalidBlockIndexs = [];
             for (let i = 0; i <= chainHeight; i++) {
                 blockValidated = await this.validateBlock(i);
                 if (!blockValidated) {
-                    // console.log("Chain is invalid");
-                    return false;
+                    invalidBlockIndexs.push(i);
                 }
             }
-            // console.log("Chain is valid");
-            return true;
+
+            if (invalidBlockIndexs.length !== 0) {
+                console.log("The blockchain is invalid. Invalid blocks are - " + invalidBlockIndexs);
+                return false;
+
+            } else {
+                // console.log("Chain is valid");
+                return true;
+
+            }
 
         } catch (err) {
             // console.log("Error validating chain. Error - " + JSON.stringify(err));

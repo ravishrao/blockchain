@@ -42,7 +42,7 @@ let timer = setTimeout(function () {
 		}).catch((err) => { console.log(err);});
 		*/
 		(async function () {
-			//Test load block chain
+			// Test load block chain
 			// (function theLoop(i) {
 			// 	setTimeout(async function () {
 			// 		let blockTest = new Block("Test Block - " + (i + 1));
@@ -56,13 +56,13 @@ let timer = setTimeout(function () {
 
 			//Test get block height
 			try {
-				console.log("BlockChain height is - " + await myBlockChain.getChainHeight());
+				console.log("BlockChain height is - " + await myBlockChain.getBlockHeight());
 			} catch (err) {
 				console.log("Error getting block height. Error - " + JSON.stringify(err));
 			}
 
 			//Test get Block
-			const blockIndex = 2;
+			const blockIndex = 14;
 			try {
 				const block = await myBlockChain.getBlock(blockIndex);
 				console.log("Block at index " + blockIndex + " is - " + JSON.stringify(block));
