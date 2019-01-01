@@ -13,7 +13,7 @@ To setup the project for review do the following:
 
 ### To add a new block
 
-http://<hostname>:8000/block
+http://\<hostname\>:8000/block
 
 HTTP Method: POST
 HTTP Body:
